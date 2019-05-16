@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Acadia Visitor Study</string>
-    <string name="tracking_button">Button</string>
-    <string name="survey_button">Button</string>
-
+    <string name="tracking_button_text_start">Start Tracking</string>
+    <string name="tracking_button_text_stop">Stop Tracking</string>
+    <string name="survey_button_text">Take Survey</string>
+    <string name="on_track_start">Starting to track GPS Data...</string>
+    <string name="on_track_stop">Stopped tracking.</string>
 </resources>
