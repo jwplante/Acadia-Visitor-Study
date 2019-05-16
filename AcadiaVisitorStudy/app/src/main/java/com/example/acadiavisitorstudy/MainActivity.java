@@ -1,5 +1,6 @@
 package com.example.acadiavisitorstudy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,5 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
             ifNotTracking = true;
         }
+    }
+
+    /***
+     * Launches the SurveyActivity activity
+     * @param view
+     */
+    public void launchSurvey(View view) {
+        Intent intent = new Intent(this, SurveyActivity.class);
+        startActivity(intent);
     }
 }

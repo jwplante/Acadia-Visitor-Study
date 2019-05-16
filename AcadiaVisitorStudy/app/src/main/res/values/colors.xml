@@ -6,4 +6,5 @@
     <color name="stop_t">#BF360C</color>
     <color name="start_t">#1B5E20</color>
     <color name="white">#FFFFFF</color>
+    <color name="standard_button_color">#4FC3F7</color>
 </resources>

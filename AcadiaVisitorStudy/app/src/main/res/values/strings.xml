@@ -1,8 +1,24 @@
 <resources>
+    <!-- Main Activity -->
     <string name="app_name">Acadia Visitor Study</string>
     <string name="tracking_button_text_start">Start Tracking</string>
     <string name="tracking_button_text_stop">Stop Tracking</string>
     <string name="survey_button_text">Take Survey</string>
     <string name="on_track_start">Starting to track GPS Data...</string>
     <string name="on_track_stop">Stopped tracking.</string>
+
+   <!-- Survey Activity -->
+    <string name="survey_title">Survey</string>
+    <string name="survey_question_1"> <b>Question 1:</b> This application affected your visit in an impactful way.</string>
+    <string name="survey_question_2"> <b>Question 2:</b> Visitor congestion is a major problem that you noticed while visiting Acadia National Park.</string>
+    <string name="survey_question_3"> <b>Question 3:</b> I use my phone often while in Acadia National Park.</string>
+    <string name="survey_question_4"> <b>Question 4:</b> I was concerned about my privacy using this application while at the park.</string>
+    <string name="survey_question_5"> <b>Question 5:</b> I would be willing to use this application again in the future to further research into visitor congestion in Acadia National Park.</string>
+    <string name="question1">1</string>
+    <string name="question_2_value">1</string>
+    <string name="question_3_value">1</string>
+    <string name="question_4_value">1</string>
+    <string name="question_5_value">1</string>
+    <string name="submit_button">Submit</string>
+    <string name="submitted_notif_text">Survey Submitted</string>
 </resources>
