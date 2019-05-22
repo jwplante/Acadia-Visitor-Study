@@ -6,6 +6,9 @@
     <string name="survey_button_text">Take Survey</string>
     <string name="on_track_start">Starting to track GPS Data...</string>
     <string name="on_track_stop">Stopped tracking.</string>
+    <string name="notif_channel_name">Acadia Visitor Tracking</string>
+    <string name="notif_channel_desc">Shows location updates</string>
+
 
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
