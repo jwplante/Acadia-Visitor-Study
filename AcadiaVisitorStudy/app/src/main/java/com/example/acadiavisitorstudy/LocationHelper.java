@@ -1,22 +1,52 @@
 package com.example.acadiavisitorstudy;
 
 import android.app.Application;
+import android.content.Context;
 import android.location.Location;
+import android.preference.PreferenceManager;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 public class LocationHelper extends Application {
 
     // Blank constructor
     LocationHelper(){}
 
+    static final String KEY_REQUESTING_LOCATION_UPDATES = "requesting_locaction_updates";
 
-    /***
-     * Converts a Location object into a displayable string
-     * @param l (Location) location data
+    /**
+     * Returns true if requesting location updates, otherwise returns false.
+     *
+     * @param context The {@link Context}.
      */
-   public static String locToString(Location l){
-       double latitude = l.getLatitude();
-       double longitude = l.getLongitude();
+    static boolean requestingLocationUpdates(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(KEY_REQUESTING_LOCATION_UPDATES, false);
+    }
 
-       return "(" + latitude + ", " + longitude + ")";
-   }
+    /**
+     * Stores the location updates state in SharedPreferences.
+     * @param requestingLocationUpdates The location updates state.
+     */
+    static void setRequestingLocationUpdates(Context context, boolean requestingLocationUpdates) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(KEY_REQUESTING_LOCATION_UPDATES, requestingLocationUpdates)
+                .apply();
+    }
+
+    /**
+     * Returns the {@code location} object as a human readable string.
+     * @param location  The {@link Location}.
+     */
+    static String getLocationText(Location location) {
+        return location == null ? "Unknown location" :
+                "(" + location.getLatitude() + ", " + location.getLongitude() + ")";
+    }
+
+    static String getLocationTitle(Context context) {
+        return context.getString(R.string.location_updated,
+                DateFormat.getDateTimeInstance().format(new Date()));
+    }
 }
