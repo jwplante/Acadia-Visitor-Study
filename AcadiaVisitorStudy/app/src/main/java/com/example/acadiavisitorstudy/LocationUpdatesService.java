@@ -27,6 +27,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -125,7 +127,12 @@ public class LocationUpdatesService extends Service {
     private Handler mServiceHandler;
 
     private long transactionNumber; // Current number of transactions with server
-    private ArrayList<Location> locationList;
+
+    private ArrayList<Location> locationList; // Temporary List of all Batched location points
+
+    private ConnectivityManager cm;
+
+    private ILocationProcessor server;
 
     /**
      * The current location.
@@ -139,6 +146,7 @@ public class LocationUpdatesService extends Service {
     public void onCreate() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        // This is called whenever a new location update is made by the API
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -167,6 +175,10 @@ public class LocationUpdatesService extends Service {
             // Set the Notification Channel for the Notification Manager.
             mNotificationManager.createNotificationChannel(mChannel);
         }
+
+        // Create ConnectivityManager
+        cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        server = new SQLDatabase();
     }
 
     @Override
@@ -180,6 +192,7 @@ public class LocationUpdatesService extends Service {
             removeLocationUpdates();
             stopSelf();
         }
+
         // Tells the system to not try to recreate the service after it has been killed.
         return START_NOT_STICKY;
     }
@@ -338,10 +351,20 @@ public class LocationUpdatesService extends Service {
             mNotificationManager.notify(NOTIFICATION_ID, getNotification());
         }
 
-        if (locationList.size() >= 5 )
+        // Add location to exisitng list
         locationList.add(mLocation);
+        Log.d(TAG, "onNewLocation: Location added!");
 
+        if(canAccessNetwork(cm) && locationList.size() >= 5) {
+            /*
+             * Once there is a network connection, take the bunch of network data and
+             * send it to the server
+             */
+            server.processDataPoints(locationList);
+            locationList.clear();
+        }
     }
+
 
     /**
      * Sets the location request parameters.
@@ -381,4 +404,14 @@ public class LocationUpdatesService extends Service {
         }
         return false;
     }
+
+
+    /***
+     * Checks if the device has an active Internet connection
+     */
+    public boolean canAccessNetwork(ConnectivityManager cm) {
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return (activeNetwork != null && activeNetwork.isConnected());
+    }
+
 }
