@@ -17,4 +17,10 @@ public interface ILocationProcessor {
      */
     boolean processDataPoints(ArrayList<Location> locations);
 
+    /***
+     * Should return true of the survey has been submitted.
+     * False if not.
+     */
+    boolean processSurvey(ArrayList<ISurveyQuestion> questions);
+
 }

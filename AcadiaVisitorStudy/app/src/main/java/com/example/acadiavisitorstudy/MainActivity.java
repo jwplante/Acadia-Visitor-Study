@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -97,7 +98,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         setContentView(R.layout.activity_main);
         trackingButton = (Button) findViewById(R.id.tracking_button);
-        ifNotTracking = true;
+
+        // If the application is not launched for the first time
+        // reset the buttons.
+        if(savedInstanceState == null) {
+            ifNotTracking = true;
+        } else {
+            ifNotTracking = savedInstanceState.getBoolean("ifNotTracking");
+            restoreButtonState(ifNotTracking);
+        }
     }
 
     @Override
@@ -155,10 +164,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 // Notify the user that the tracking has started
                 Toast.makeText(this, R.string.on_track_start, Toast.LENGTH_SHORT).show();
 
-                // UI Changes
-                trackingButton.setText(R.string.tracking_button_text_stop);
-                trackingButton.setBackgroundResource(R.color.stop_t);
-
+                changeButtonState(ifNotTracking);
                 // Start up the location service
                 mService.requestLocationUpdates();
 
@@ -169,17 +175,39 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             // Stop the foreground service
             mService.removeLocationUpdates();
 
+            changeButtonState(ifNotTracking);
+
             // Notify the user that we are not tracking anymore (we promise)
             Toast.makeText(this, R.string.on_track_stop, Toast.LENGTH_SHORT).show();
-
-            // UT Changes
-            trackingButton.setText(R.string.tracking_button_text_start);
-            trackingButton.setBackgroundResource(R.color.start_t);
 
             ifNotTracking = true;
         }
     }
 
+    /***
+     * Changes the state of the tracking button depending on when it is being tracked.
+     * @param ifNotTracking
+     */
+    private void changeButtonState(boolean ifNotTracking) {
+        if (ifNotTracking) {
+            // Set to red and stop
+            trackingButton.setText(R.string.tracking_button_text_stop);
+            trackingButton.setBackgroundResource(R.color.stop_t);
+        } else {
+            // Set to green and start
+            trackingButton.setText(R.string.tracking_button_text_start);
+            trackingButton.setBackgroundResource(R.color.start_t);
+        }
+    }
+
+
+    /***
+     * Restores the button state when returning to the activity
+     */
+    private void restoreButtonState(boolean ifTracking) {
+       ifTracking = !ifNotTracking;
+       changeButtonState(ifTracking);
+    }
 
     /***
      * Launches the SurveyActivity activity
@@ -236,7 +264,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putBoolean("ifNotTracking", ifNotTracking);
+    }
+
+
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+
     }
 
 }

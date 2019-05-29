@@ -293,13 +293,7 @@ public class LocationUpdatesService extends Service {
         PendingIntent servicePendingIntent = PendingIntent.getService(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // The PendingIntent to launch activity.
-        PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .addAction(R.drawable.ic_launch, getString(R.string.launch_activity),
-                        activityPendingIntent)
                 .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
                         servicePendingIntent)
                 .setContentText(text)
@@ -353,7 +347,7 @@ public class LocationUpdatesService extends Service {
 
         // Add location to exisitng list
         locationList.add(mLocation);
-        Log.d(TAG, "onNewLocation: Location added!");
+        Log.i(TAG, "onNewLocation: Location added!");
 
         if(canAccessNetwork(cm) && locationList.size() >= 5) {
             /*
