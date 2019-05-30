@@ -101,12 +101,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         // If the application is not launched for the first time
         // reset the buttons.
-        if(savedInstanceState == null) {
-            ifNotTracking = true;
-        } else {
-            ifNotTracking = savedInstanceState.getBoolean("ifNotTracking");
-            restoreButtonState(ifNotTracking);
-        }
+        ifNotTracking = true;
     }
 
     @Override
@@ -202,14 +197,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
     /***
-     * Restores the button state when returning to the activity
-     */
-    private void restoreButtonState(boolean ifTracking) {
-       ifTracking = !ifNotTracking;
-       changeButtonState(ifTracking);
-    }
-
-    /***
      * Launches the SurveyActivity activity
      * @param view
      */
@@ -264,15 +251,28 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putBoolean("ifNotTracking", ifNotTracking);
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        ifNotTracking = savedInstanceState.getBoolean("ifNotTracking");
+
+        if (!ifNotTracking) {
+            // Set to red and stop
+            trackingButton.setText(R.string.tracking_button_text_stop);
+            trackingButton.setBackgroundResource(R.color.stop_t);
+        }
+
+    }
+
 
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-
     }
 
 }
