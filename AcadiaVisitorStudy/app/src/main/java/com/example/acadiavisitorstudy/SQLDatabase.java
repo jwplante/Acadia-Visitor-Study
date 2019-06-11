@@ -20,7 +20,8 @@ import java.util.Random;
 
 public class SQLDatabase implements ILocationProcessor {
 
-    private final String url = "http://acadiatrails.wpi.edu/"; // URL to send the data to.
+    private final String url = "http://acadiatrails.wpi.edu/index.php"; // URL to send the data to.
+
     private int uid;
     private static final String TAG = "SQLDatabase";
 
@@ -74,14 +75,28 @@ public class SQLDatabase implements ILocationProcessor {
     @Override
     public boolean processSurvey (ArrayList < ISurveyQuestion > questions) {
         // Currently a stub right now to test the logic.
-        int i = 0;
-        Log.i(TAG, "processSurvey: Processing " + questions.size() + " Questions");
-        for (ISurveyQuestion question : questions) {
-            Log.i(TAG, "processSurvey: Survey Question " + i + " Response : " + question.toString());
-            i++;
+        Log.d(TAG, "processSurvey: Processing " + Integer.toString(questions.size()));
+        JSONObject jobj = new JSONObject();
+        try {
+            jobj.put("user", uid);
+            jobj.put("operation","survey");
+
+            // Creating the data field
+            JSONObject jsurv = new JSONObject();
+
+            // For each question, add to JSON
+            for (int i = 0; i < questions.size(); i++) {
+                jsurv.put("q" + Integer.toString(i + 1), questions.get(i).toString());
+            }
+
+            jobj.put("data",jsurv);
+            AsyncTaskRunner serverUpload = new AsyncTaskRunner();
+            serverUpload.execute(url, jobj.toString());
+            return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
         }
-        Log.i(TAG, "processSurvey: Survey Submitted!");
-        return true;
     }
 
 
@@ -106,6 +121,16 @@ public class SQLDatabase implements ILocationProcessor {
                 os.writeBytes(params[1]);
                 os.flush();
                 os.close();
+
+                // Just keep this here. The server needs someone to talk to
+                BufferedReader br = new BufferedReader (new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+                StringBuilder response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
+                Log.d(TAG, "doInBackground: " + response.toString());
 
             } catch (Exception e) {
                 e.printStackTrace();

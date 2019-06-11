@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         setContentView(R.layout.activity_main);
         trackingButton = (Button) findViewById(R.id.tracking_button);
 
+        // If there is no user ID, we want to create it
+
         // If the application is not launched for the first time
         // reset the buttons.
         ifNotTracking = true;
