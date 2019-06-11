@@ -1,5 +1,7 @@
 package com.example.acadiavisitorstudy;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.Log;
 
@@ -24,11 +26,31 @@ public class SQLDatabase implements ILocationProcessor {
 
     private int uid;
     private static final String TAG = "SQLDatabase";
+    final String PREFS_NAME = "MyPrefsFile";
 
-    SQLDatabase() {
-        // Get a random uid (temporary fix)
-        Random r = new Random();
-        this.uid = r.nextInt(Integer.MAX_VALUE);
+    SQLDatabase(Context context) {
+//        Get a random uid (temporary fix)
+//        Random r = new Random();
+//        this.uid = r.nextInt(Integer.MAX_VALUE);
+
+
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.contains("uid")&& (settings.getInt("uid", -1) != -1)){
+            //User already has an ID
+            uid = settings.getInt("uid", -1);
+        }
+        else{
+            Log.d(TAG, "SQLDatabase: Generate ID");
+            AsyncTaskRunnerGet getUID = new AsyncTaskRunnerGet();
+            getUID.execute(url);
+            SharedPreferences.Editor prefEdit = settings.edit().putInt("uid", uid);
+            prefEdit.commit();
+
+        }
+
+        //if false get id else use the id thats there
+
     }
 
 
@@ -150,5 +172,60 @@ public class SQLDatabase implements ILocationProcessor {
             //impliment inputstream to get a return from doInBackground
         }
     }
+
+    private class AsyncTaskRunnerGet extends AsyncTask<String, String, String> {
+
+        private String resp;
+        private final String USER_AGENT = "Mozilla/5.0";
+
+        @Override
+        protected String doInBackground(String... params) {
+            HttpURLConnection httpURLConnection = null;
+            try {
+
+                URL url = new URL(params[0]);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setRequestProperty("USER_AGENT", USER_AGENT);
+
+                int responseCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "doInBackground: response Code " + responseCode);
+
+                // Just keep this here. The server needs someone to talk to
+                BufferedReader br = new BufferedReader (new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+                StringBuilder rsp = new StringBuilder();
+                String responseLine = null;
+
+                while ((responseLine = br.readLine()) != null) {
+                    rsp.append(responseLine.trim());
+                }
+
+                Log.d(TAG, "doInBackground: " + rsp.toString());
+                resp = rsp.toString();
+                uid = Integer.parseInt(resp);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+
+            return resp;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //we are not sure yet if we want the server to respond with anything.
+            // results is the return of doIbBackground
+            //impliment inputstream to get a return from doInBackground
+        }
+    }
+
+
+
+
 }
 

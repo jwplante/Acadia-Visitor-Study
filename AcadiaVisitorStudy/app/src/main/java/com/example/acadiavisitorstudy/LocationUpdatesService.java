@@ -178,7 +178,7 @@ public class LocationUpdatesService extends Service {
 
         // Create ConnectivityManager
         cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        server = new SQLDatabase();
+        server = new SQLDatabase(getApplicationContext());
     }
 
     @Override
