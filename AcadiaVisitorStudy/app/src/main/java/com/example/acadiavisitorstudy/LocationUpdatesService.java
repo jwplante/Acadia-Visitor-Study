@@ -354,8 +354,10 @@ public class LocationUpdatesService extends Service {
              * Once there is a network connection, take the bunch of network data and
              * send it to the server
              */
-            server.processDataPoints(locationList);
-            locationList.clear();
+            if (server.processDataPoints(locationList)) {
+                locationList.clear();
+            }
+            
         }
     }
 

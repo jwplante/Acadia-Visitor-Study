@@ -149,9 +149,12 @@ public class SurveyActivity extends AppCompatActivity {
 
         // Submit the questions to the server
         ILocationProcessor server = new SQLDatabase(getApplicationContext());
-        server.processSurvey(questions);
+        if (server.processSurvey(questions)) {
+            Toast.makeText(this, R.string.submitted_notif_text, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, getString(R.string.tryagain), Toast.LENGTH_LONG).show();
+        }
 
-        Toast.makeText(this, R.string.submitted_notif_text, Toast.LENGTH_LONG).show();
         finish();
     }
 }

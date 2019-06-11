@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,14 +28,13 @@ public class SQLDatabase implements ILocationProcessor {
     private int uid;
     private static final String TAG = "SQLDatabase";
     final String PREFS_NAME = "MyPrefsFile";
+    private SharedPreferences settings;
 
     SQLDatabase(Context context) {
 //        Get a random uid (temporary fix)
 //        Random r = new Random();
 //        this.uid = r.nextInt(Integer.MAX_VALUE);
-
-
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        settings = context.getSharedPreferences(PREFS_NAME, 0);
 
         if (settings.contains("uid")&& (settings.getInt("uid", -1) != -1)){
             //User already has an ID
@@ -44,11 +44,17 @@ public class SQLDatabase implements ILocationProcessor {
             Log.d(TAG, "SQLDatabase: Generate ID");
             AsyncTaskRunnerGet getUID = new AsyncTaskRunnerGet();
             getUID.execute(url);
-            SharedPreferences.Editor prefEdit = settings.edit().putInt("uid", uid);
-            prefEdit.commit();
-
+            // Wait for AsyncTask to finish
+            try {
+                // If it can get an int, then store it.
+                if (getUID.get().equals("true")) {
+                    SharedPreferences.Editor prefEdit = settings.edit().putInt("uid", uid);
+                    prefEdit.commit();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
         //if false get id else use the id thats there
 
     }
@@ -81,9 +87,9 @@ public class SQLDatabase implements ILocationProcessor {
             }
             jobj.put("data",jarray);
             AsyncTaskRunner serverUpload = new AsyncTaskRunner();
-            serverUpload.execute(url, jobj.toString());
-            return true;
-        } catch (JSONException e) {
+            String response = serverUpload.execute(url, jobj.toString()).get();
+            return response.equals("true");
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -113,9 +119,12 @@ public class SQLDatabase implements ILocationProcessor {
 
             jobj.put("data",jsurv);
             AsyncTaskRunner serverUpload = new AsyncTaskRunner();
-            serverUpload.execute(url, jobj.toString());
-            return true;
+            String resp = serverUpload.execute(url, jobj.toString()).get();
+            return (resp.equals("true"));
         } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -154,15 +163,20 @@ public class SQLDatabase implements ILocationProcessor {
 
                 Log.d(TAG, "doInBackground: " + response.toString());
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                resp = e.getMessage();
-            } finally {
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
+
+                return "true";
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+
+                return "false";
             }
-            return resp;
         }
 
         @Override
@@ -204,16 +218,20 @@ public class SQLDatabase implements ILocationProcessor {
                 resp = rsp.toString();
                 uid = Integer.parseInt(resp);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                resp = e.getMessage();
-            } finally {
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
-            }
+                return "true";
+            } catch (Exception e) {
+                e.printStackTrace();
+                uid = -1;
 
-            return resp;
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+
+                return "false";
+            }
         }
 
         @Override
