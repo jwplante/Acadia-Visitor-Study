@@ -152,7 +152,7 @@ public class SurveyActivity extends AppCompatActivity {
         if (server.processSurvey(questions)) {
             Toast.makeText(this, R.string.submitted_notif_text, Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, getString(R.string.tryagain), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.tryagain, Toast.LENGTH_LONG).show();
         }
 
         finish();

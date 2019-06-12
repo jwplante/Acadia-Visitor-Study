@@ -299,7 +299,7 @@ public class LocationUpdatesService extends Service {
                 .setContentText(text)
                 .setContentTitle(LocationHelper.getLocationTitle(this))
                 .setOngoing(true)
-                .setPriority(Notification.PRIORITY_HIGH)
+                .setPriority(Notification.PRIORITY_LOW)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker(text)
                 .setWhen(System.currentTimeMillis());
