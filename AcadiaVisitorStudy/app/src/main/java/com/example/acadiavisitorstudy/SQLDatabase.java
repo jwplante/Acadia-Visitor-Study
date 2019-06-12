@@ -27,26 +27,24 @@ public class SQLDatabase implements ILocationProcessor {
     private int uid;
     private static final String TAG = "SQLDatabase";
     final String PREFS_NAME = "MyPrefsFile";
+    private Context context;
 
     SQLDatabase(Context context) {
 //        Get a random uid (temporary fix)
 //        Random r = new Random();
 //        this.uid = r.nextInt(Integer.MAX_VALUE);
 
+        this.context = context;
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-
-        if (settings.contains("uid")&& (settings.getInt("uid", -1) != -1)){
+        if (settings.contains("uid") && (settings.getInt("uid", 0) != 0)){
             //User already has an ID
-            uid = settings.getInt("uid", -1);
+            uid = settings.getInt("uid", 0);
         }
         else{
             Log.d(TAG, "SQLDatabase: Generate ID");
             AsyncTaskRunnerGet getUID = new AsyncTaskRunnerGet();
             getUID.execute(url);
-            SharedPreferences.Editor prefEdit = settings.edit().putInt("uid", uid);
-            prefEdit.commit();
-
         }
 
         //if false get id else use the id thats there
@@ -203,6 +201,10 @@ public class SQLDatabase implements ILocationProcessor {
                 Log.d(TAG, "doInBackground: " + rsp.toString());
                 resp = rsp.toString();
                 uid = Integer.parseInt(resp);
+
+                SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                settings.edit().putInt("uid", uid).apply();
+
 
             } catch (Exception e) {
                 e.printStackTrace();
