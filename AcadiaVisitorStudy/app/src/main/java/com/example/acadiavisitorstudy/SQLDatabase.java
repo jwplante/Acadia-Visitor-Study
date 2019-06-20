@@ -3,24 +3,21 @@ package com.example.acadiavisitorstudy;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.os.AsyncTask;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class SQLDatabase implements ILocationProcessor {
+public class SQLDatabase implements ILocationProcessor{
 
     private final String url = "http://acadiatrails.wpi.edu/index.php"; // URL to send the data to.
 
@@ -28,14 +25,13 @@ public class SQLDatabase implements ILocationProcessor {
     private static final String TAG = "SQLDatabase";
     final String PREFS_NAME = "MyPrefsFile";
     private Context context;
+    IResultListener resultListener;
 
-    SQLDatabase(Context context) {
-//        Get a random uid (temporary fix)
-//        Random r = new Random();
-//        this.uid = r.nextInt(Integer.MAX_VALUE);
+    SQLDatabase(Context context, IResultListener resultListener) {
 
         this.context = context;
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.resultListener = resultListener; // Declare a listener to get the results
 
         if (settings.contains("uid") && (settings.getInt("uid", 0) != 0)){
             //User already has an ID
@@ -43,11 +39,9 @@ public class SQLDatabase implements ILocationProcessor {
         }
         else{
             Log.d(TAG, "SQLDatabase: Generate ID");
-            AsyncTaskRunnerGet getUID = new AsyncTaskRunnerGet();
+            AsyncTaskRunnerGET getUID = new AsyncTaskRunnerGET();
             getUID.execute(url);
         }
-
-        //if false get id else use the id thats there
 
     }
 
@@ -78,8 +72,9 @@ public class SQLDatabase implements ILocationProcessor {
                 Log.i(TAG, "Location point: " + LocationHelper.getLocationText(l) + "has been uploaded to the server.");
             }
             jobj.put("data",jarray);
-            AsyncTaskRunner serverUpload = new AsyncTaskRunner();
+            AsyncTaskRunnerPOST serverUpload = new AsyncTaskRunnerPOST(resultListener);
             serverUpload.execute(url, jobj.toString());
+
             return true;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -110,7 +105,7 @@ public class SQLDatabase implements ILocationProcessor {
             }
 
             jobj.put("data",jsurv);
-            AsyncTaskRunner serverUpload = new AsyncTaskRunner();
+            AsyncTaskRunnerPOST serverUpload = new AsyncTaskRunnerPOST(resultListener);
             serverUpload.execute(url, jobj.toString());
             return true;
         } catch (JSONException e) {
@@ -120,12 +115,16 @@ public class SQLDatabase implements ILocationProcessor {
     }
 
 
-    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+    private class AsyncTaskRunnerPOST extends AsyncTask<String, String, Boolean> {
 
-        private String resp;
+        private IResultListener resultListener;
+
+        AsyncTaskRunnerPOST(IResultListener resultListener) {
+            this.resultListener = resultListener;
+        }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             HttpURLConnection httpURLConnection = null;
             try {
 
@@ -134,7 +133,7 @@ public class SQLDatabase implements ILocationProcessor {
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 httpURLConnection.setRequestProperty("Accept", "application/json");
-                httpURLConnection.setDoOutput(true);
+                httpURLConnection. setDoOutput(true);
                 httpURLConnection.connect();
 
                 DataOutputStream os = new DataOutputStream(httpURLConnection.getOutputStream());
@@ -152,32 +151,36 @@ public class SQLDatabase implements ILocationProcessor {
 
                 Log.d(TAG, "doInBackground: " + response.toString());
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                resp = e.getMessage();
-            } finally {
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
+
+                return true;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+
+                return false;
             }
-            return resp;
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            //we are not sure yet if we want the server to respond with anything.
-            // results is the return of doIbBackground
-            //impliment inputstream to get a return from doInBackground
+        protected void onPostExecute(Boolean result) {
+            // Take the result and give it to the listener class to process
+            resultListener.onSubmit(result);
         }
     }
 
-    private class AsyncTaskRunnerGet extends AsyncTask<String, String, String> {
+    private class AsyncTaskRunnerGET extends AsyncTask<String, String, Boolean> {
 
         private String resp;
         private final String USER_AGENT = "Mozilla/5.0";
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             HttpURLConnection httpURLConnection = null;
             try {
 
@@ -205,24 +208,27 @@ public class SQLDatabase implements ILocationProcessor {
                 SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                 settings.edit().putInt("uid", uid).apply();
 
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+
+                return true;
 
             } catch (Exception e) {
                 e.printStackTrace();
                 resp = e.getMessage();
-            } finally {
+
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
+
+                return false;
             }
 
-            return resp;
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            //we are not sure yet if we want the server to respond with anything.
-            // results is the return of doIbBackground
-            //impliment inputstream to get a return from doInBackground
+        protected void onPostExecute(Boolean result) {
         }
     }
 

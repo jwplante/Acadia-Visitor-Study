@@ -13,7 +13,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -28,7 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity {
 
     // Middle button
     static private Button trackingButton;
@@ -110,8 +109,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onStart() {
         super.onStart();
 
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(this);
+        PreferenceManager.getDefaultSharedPreferences(this);
+
 
         // Bind to the service. If the service is in foreground mode, this signals to the service
         // that since this activity is in the foreground, the service can exit foreground mode.
@@ -124,6 +123,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
                 new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
+        SharedPreferences settings = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        ifNotTracking = settings.getBoolean("ifNotTracking", true);
+        changeButtonState(!ifNotTracking);
     }
 
     @Override
@@ -141,8 +143,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             unbindService(mServiceConnection);
             mBound = false;
         }
+        SharedPreferences s = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        s.edit().putBoolean("ifNotTracking", ifNotTracking).apply();
         super.onStop();
     }
+
 
     /***
      * Method to start collecting data
@@ -261,20 +266,20 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        ifNotTracking = savedInstanceState.getBoolean("ifNotTracking");
+        boolean currentState = savedInstanceState.getBoolean("ifNotTracking");
+
+        SharedPreferences settings = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        ifNotTracking = settings.getBoolean("ifNotTracking", currentState);
 
         if (!ifNotTracking) {
             // Set to red and stop
             trackingButton.setText(R.string.tracking_button_text_stop);
             trackingButton.setBackgroundResource(R.color.stop_t);
+        } else {
+            trackingButton.setText(R.string.tracking_button_text_start);
+            trackingButton.setBackgroundResource(R.color.start_t);
         }
 
-    }
-
-
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
     }
 
 }

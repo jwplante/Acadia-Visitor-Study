@@ -25,6 +25,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -65,7 +66,7 @@ import java.util.ArrayList;
  * notification assocaited with that service is removed.
  */
 
-public class LocationUpdatesService extends Service {
+public class LocationUpdatesService extends Service implements IResultListener{
 
     private static final String PACKAGE_NAME =
             "com.google.android.gms.location.sample.locationupdatesforegroundservice";
@@ -126,8 +127,6 @@ public class LocationUpdatesService extends Service {
 
     private Handler mServiceHandler;
 
-    private long transactionNumber; // Current number of transactions with server
-
     private ArrayList<Location> locationList; // Temporary List of all Batched location points
 
     private ConnectivityManager cm;
@@ -178,7 +177,7 @@ public class LocationUpdatesService extends Service {
 
         // Create ConnectivityManager
         cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        server = new SQLDatabase(getApplicationContext());
+        server = new SQLDatabase(getApplicationContext(), this);
     }
 
     @Override
@@ -271,6 +270,14 @@ public class LocationUpdatesService extends Service {
         try {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
             LocationHelper.setRequestingLocationUpdates(this, false);
+
+            // Update button state
+            SharedPreferences s = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+            s.edit().putBoolean("ifNotTracking", true).apply();
+
+            // Remove cached points
+            locationList.clear();
+
             stopSelf();
         } catch (SecurityException unlikely) {
             LocationHelper.setRequestingLocationUpdates(this, true);
@@ -354,9 +361,7 @@ public class LocationUpdatesService extends Service {
              * Once there is a network connection, take the bunch of network data and
              * send it to the server
              */
-            if (server.processDataPoints(locationList)) {
-                locationList.clear();
-            }
+            server.processDataPoints(locationList);
             
         }
     }
@@ -410,4 +415,15 @@ public class LocationUpdatesService extends Service {
         return (activeNetwork != null && activeNetwork.isConnected());
     }
 
+    /***
+     * When the data is sumbitted to the database
+     * @param result
+     */
+    @Override
+    public void onSubmit(boolean result) {
+        // If the server succeeded, clear the list.
+        if (result) {
+            locationList.clear();
+        }
+    }
 }

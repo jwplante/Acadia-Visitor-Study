@@ -1,8 +1,7 @@
 package com.example.acadiavisitorstudy;
 
-import android.location.Location;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SurveyActivity extends AppCompatActivity {
+public class SurveyActivity extends AppCompatActivity implements IResultListener {
 
     // Array to store the questions
     private ArrayList<Integer> questionArray = new ArrayList<Integer>();
@@ -148,13 +147,21 @@ public class SurveyActivity extends AppCompatActivity {
         }
 
         // Submit the questions to the server
-        ILocationProcessor server = new SQLDatabase(getApplicationContext());
-        if (server.processSurvey(questions)) {
-            Toast.makeText(this, R.string.submitted_notif_text, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, R.string.tryagain, Toast.LENGTH_LONG).show();
-        }
-
+        ILocationProcessor server = new SQLDatabase(getApplicationContext(), this);
+        server.processSurvey(questions);
         finish();
+    }
+
+    /***
+     * Handles when the survey is submitted (or not)
+     * @param result
+     */
+    @Override
+    public void onSubmit(boolean result) {
+        if (result) {
+            Toast.makeText(this, "Survey Submitted!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Survey failed to submit! Please try again later.", Toast.LENGTH_LONG).show();
+        }
     }
 }
