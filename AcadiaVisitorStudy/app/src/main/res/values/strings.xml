@@ -29,6 +29,9 @@
     <string name="submitted_notif_text">Survey Submitted</string>
     <string name="Agree">Agree</string>
     <string name="Disagree">Disagree</string>
+    <!-- License Activity -->
+    <string name="BackButton">Done</string>
+    <string name="ApacheLicense">Still needs to be added to resources</string>
 
     <!-- LocationUpdatesService-->
     <string name="location_unknown">Location unknown</string>
