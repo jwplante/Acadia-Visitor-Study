@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     // Middle button
     static private Button trackingButton;
 
-    // Used to check button state (should be ported to a proference
+    // Used to check button state (should be ported to a preference
     static private boolean ifNotTracking;
 
     private FusedLocationProviderClient fusedLocationClient; // Fused Location Client
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
                 new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
-        SharedPreferences settings = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         ifNotTracking = settings.getBoolean("ifNotTracking", true);
         changeButtonState(!ifNotTracking);
     }
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             unbindService(mServiceConnection);
             mBound = false;
         }
-        SharedPreferences s = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        SharedPreferences s = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         s.edit().putBoolean("ifNotTracking", ifNotTracking).apply();
         super.onStop();
     }
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         boolean currentState = savedInstanceState.getBoolean("ifNotTracking");
 
-        SharedPreferences settings = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         ifNotTracking = settings.getBoolean("ifNotTracking", currentState);
 
         if (!ifNotTracking) {

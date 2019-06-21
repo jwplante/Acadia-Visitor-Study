@@ -51,31 +51,4 @@ public class LocationHelper extends Application {
                 DateFormat.getDateTimeInstance().format(new Date()));
     }
 
-    /***
-     * Determines if a Location object is within a specific radius of a given
-     * area.
-     * @param latCenter - latitude of the center of geofence
-     * @param longCenter - longitude of the center of geofence
-     * @param radius - in miles
-     * @return
-     */
-    static boolean withinGeofence(Location l, float latCenter, float longCenter, float radius) {
-        // Create a new Location object
-        Location dest = new Location("null");
-        dest.setLatitude(latCenter);
-        dest.setLongitude(longCenter);
-
-       float distance  = metersToMiles(l.distanceTo(dest));
-
-       return distance <= radius;
-    }
-
-    /***
-     * Simple method to convert meters to miles.
-     * @param distance
-     * @return
-     */
-    static float metersToMiles(float distance) {
-       return (distance / NUMBER_OF_METERS_IN_MILE);
-    }
 }

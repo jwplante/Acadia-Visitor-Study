@@ -272,7 +272,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
             LocationHelper.setRequestingLocationUpdates(this, false);
 
             // Update button state
-            SharedPreferences s = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+            SharedPreferences s = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
             s.edit().putBoolean("ifNotTracking", true).apply();
 
             // Remove cached points
@@ -347,7 +347,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
         intent.putExtra(EXTRA_LOCATION, location);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
-        // Update notification content if running as a foreground service.
+        // Update notification content if rufloatnning as a foreground service.
         if (serviceIsRunningInForeground(this)) {
             mNotificationManager.notify(NOTIFICATION_ID, getNotification());
         }

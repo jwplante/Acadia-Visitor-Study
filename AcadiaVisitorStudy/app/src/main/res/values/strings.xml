@@ -1,4 +1,6 @@
 <resources>
+    <string name="pref_file">Preferences</string>
+
     <!-- Main Activity -->
     <string name="app_name">Acadia Visitor Study</string>
     <string name="tracking_button_text_start">Start Tracking</string>
@@ -8,7 +10,6 @@
     <string name="on_track_stop">Stopped tracking.</string>
     <string name="notif_channel_name">Acadia Visitor Tracking</string>
     <string name="notif_channel_desc">Shows location updates</string>
-
 
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
@@ -23,7 +24,8 @@
     <string name="question_4_value">1</string>
     <string name="question_5_value">1</string>
     <string name="submit_button">Submit</string>
-    <string name="submitted_notif_text">Survey Submitted</string>
+    <string name="survey_submit_success">Survey Submitted</string>
+    <string name="survey_submit_failed">Survey failed to submit! Please try again later.</string>
 
     <!-- LocationUpdatesService-->
     <string name="location_unknown">Location unknown</string>
@@ -36,7 +38,8 @@
     <string name="ok">OK</string>
     <string name="request_location_updates">Request location updates</string>
     <string name="remove_location_updates">Stop Tracking</string>
-
     <string name="location_updated">Location Updated: %1$s</string>
     <string name="tryagain">Cannot upload survey at this time. Try again later.</string>
+
+    <string name="settings_name"></string>
 </resources>
