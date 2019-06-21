@@ -138,6 +138,8 @@ public class LocationUpdatesService extends Service implements IResultListener{
      */
     private Location mLocation;
 
+    private ArrayList<IGeofence> geofences;
+
     public LocationUpdatesService() {
     }
 
@@ -338,23 +340,29 @@ public class LocationUpdatesService extends Service implements IResultListener{
     }
 
     private void onNewLocation(Location location) {
-        Log.i(TAG, "New location: " + location);
+        // Check if within geofences, then record the data.
+        if(LocationHelper.ifWithinGeofences(location, geofences)){
 
-        mLocation = location;
+            Log.i(TAG, "New location: " + location);
 
-        // Notify anyone listening for broadcasts about the new location.
-        Intent intent = new Intent(ACTION_BROADCAST);
-        intent.putExtra(EXTRA_LOCATION, location);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+            mLocation = location;
 
-        // Update notification content if rufloatnning as a foreground service.
-        if (serviceIsRunningInForeground(this)) {
-            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+            // Notify anyone listening for broadcasts about the new location.
+            Intent intent = new Intent(ACTION_BROADCAST);
+            intent.putExtra(EXTRA_LOCATION, location);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+
+            // Update notification content if rufloatnning as a foreground service.
+            if (serviceIsRunningInForeground(this)) {
+                mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+            }
+
+            // Add location to exisitng list
+            locationList.add(mLocation);
+            Log.i(TAG, "onNewLocation: Location added!");
+        } else {
+            Log.i(TAG, "onNewLocation: Location outside of range. Will not record location.");
         }
-
-        // Add location to exisitng list
-        locationList.add(mLocation);
-        Log.i(TAG, "onNewLocation: Location added!");
 
         if(canAccessNetwork(cm) && locationList.size() >= 5) {
             /*

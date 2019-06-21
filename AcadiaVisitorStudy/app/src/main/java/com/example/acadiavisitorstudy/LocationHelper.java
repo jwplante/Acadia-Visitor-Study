@@ -6,6 +6,7 @@ import android.location.Location;
 import android.preference.PreferenceManager;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LocationHelper extends Application {
@@ -49,6 +50,27 @@ public class LocationHelper extends Application {
     static String getLocationTitle(Context context) {
         return context.getString(R.string.location_updated,
                 DateFormat.getDateTimeInstance().format(new Date()));
+    }
+
+    /***
+     * Checks if a Location is within an array of Geofences. Returns true if yes, false if no.
+     * @param location
+     * @param geofences
+     * @return
+     */
+    static boolean ifWithinGeofences(Location location, ArrayList<IGeofence> geofences) {
+        boolean withinGeofence = false;
+
+        /*
+         * Check all of the geofences in a loca
+         */
+        for (IGeofence geofence : geofences) {
+            if (geofence.withinGeofence(location)){
+                withinGeofence = true;
+            }
+        }
+
+        return withinGeofence;
     }
 
 }
