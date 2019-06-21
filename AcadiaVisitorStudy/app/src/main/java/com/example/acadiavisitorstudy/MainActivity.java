@@ -211,6 +211,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SurveyActivity.class);
         startActivity(intent);
     }
+    /***
+     * Launches the LicenseActivity activity
+     * @param view
+     */
+    public void viewLicense(View view){
+        Intent intent = new Intent(this, SurveyActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * Method to get user permissions about location. Displays a message box if permission is

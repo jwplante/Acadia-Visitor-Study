@@ -8,15 +8,18 @@
     <string name="on_track_stop">Stopped tracking.</string>
     <string name="notif_channel_name">Acadia Visitor Tracking</string>
     <string name="notif_channel_desc">Shows location updates</string>
-
-
+    <string name="jack">Joseph Hogan</string>
+    <string name="jim">James Plante</string>
+    <string name="wpi">Worcester Polytechnic Institute</string>
+    <string name="MainPicture">toBeWpiLogo</string>
+    <string name="LicensePicture">LicensePicture</string>
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
     <string name="survey_question_1"> <b>Question 1:</b> This application affected your visit in an impactful way.</string>
-    <string name="survey_question_2"> <b>Question 2:</b> Visitor congestion is a major problem that you noticed while visiting Acadia National Park.</string>
+    <string name="survey_question_2"> <b>Question 2:</b> Visitor congestion is a major problem in Acadia National Park.</string>
     <string name="survey_question_3"> <b>Question 3:</b> I use my phone often while in Acadia National Park.</string>
-    <string name="survey_question_4"> <b>Question 4:</b> I was concerned about my privacy using this application while at the park.</string>
-    <string name="survey_question_5"> <b>Question 5:</b> I would be willing to use this application again in the future to further research into visitor congestion in Acadia National Park.</string>
+    <string name="survey_question_4"> <b>Question 4:</b> I was concerned about my privacy while using this application.</string>
+    <string name="survey_question_5"> <b>Question 5:</b> I would be willing to use this application again in the future to improve traffic conditions in Acadia National Park.</string>
     <string name="question1">1</string>
     <string name="question_2_value">1</string>
     <string name="question_3_value">1</string>
@@ -24,6 +27,8 @@
     <string name="question_5_value">1</string>
     <string name="submit_button">Submit</string>
     <string name="submitted_notif_text">Survey Submitted</string>
+    <string name="Agree">Agree</string>
+    <string name="Disagree">Disagree</string>
 
     <!-- LocationUpdatesService-->
     <string name="location_unknown">Location unknown</string>
