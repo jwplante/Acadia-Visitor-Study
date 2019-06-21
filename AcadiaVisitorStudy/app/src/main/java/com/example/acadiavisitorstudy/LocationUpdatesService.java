@@ -145,6 +145,11 @@ public class LocationUpdatesService extends Service implements IResultListener{
 
     @Override
     public void onCreate() {
+        // Add a geofence for Mound Desert Island and Schoodic Peninsula
+        geofences = new ArrayList<IGeofence>();
+        geofences.add(new CircularGeofence(new GPSPoint(44.323684, -68.288247), 13384.08f));
+        geofences.add(new CircularGeofence(new GPSPoint(44.346791, -68.052729), 4212.80f));
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // This is called whenever a new location update is made by the API
@@ -236,7 +241,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
         if (!mChangingConfiguration && LocationHelper.requestingLocationUpdates(this)) {
             Log.i(TAG, "Starting foreground service");
 
-            startForeground(NOTIFICATION_ID, getNotification());
+            startForeground(NOTIFICATION_ID, getNotification(!LocationHelper.ifWithinGeofences(mLocation, geofences)));
         }
         return true; // Ensures onRebind() is called when a client re-binds.
     }
@@ -290,10 +295,11 @@ public class LocationUpdatesService extends Service implements IResultListener{
     /**
      * Returns the {@link NotificationCompat} used as part of the foreground service.
      */
-    private Notification getNotification() {
+    private Notification getNotification(boolean outOfRange) {
         Intent intent = new Intent(this, LocationUpdatesService.class);
 
         CharSequence text = LocationHelper.getLocationText(mLocation);
+        CharSequence oorString = getString(R.string.out_of_range);
 
         // Extra to help us figure out if we arrived in onStartCommand via the notification or not.
         intent.putExtra(EXTRA_STARTED_FROM_NOTIFICATION, true);
@@ -302,16 +308,31 @@ public class LocationUpdatesService extends Service implements IResultListener{
         PendingIntent servicePendingIntent = PendingIntent.getService(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
-                        servicePendingIntent)
-                .setContentText(text)
-                .setContentTitle(LocationHelper.getLocationTitle(this))
-                .setOngoing(true)
-                .setPriority(Notification.PRIORITY_LOW)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setTicker(text)
-                .setWhen(System.currentTimeMillis());
+        NotificationCompat.Builder builder;
+        if (outOfRange)
+        {
+            builder = new NotificationCompat.Builder(this)
+                    .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
+                            servicePendingIntent)
+                    .setContentText(oorString)
+                    .setContentTitle(LocationHelper.getLocationTitle(this))
+                    .setOngoing(true)
+                    .setPriority(Notification.PRIORITY_LOW)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setTicker(text)
+                    .setWhen(System.currentTimeMillis());
+        } else {
+            builder = new NotificationCompat.Builder(this)
+                    .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
+                            servicePendingIntent)
+                    .setContentText(text)
+                    .setContentTitle(LocationHelper.getLocationTitle(this))
+                    .setOngoing(true)
+                    .setPriority(Notification.PRIORITY_LOW)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setTicker(text)
+                    .setWhen(System.currentTimeMillis());
+        }
 
         // Set the Channel ID for Android O.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -340,13 +361,12 @@ public class LocationUpdatesService extends Service implements IResultListener{
     }
 
     private void onNewLocation(Location location) {
+        mLocation = location;
+
         // Check if within geofences, then record the data.
         if(LocationHelper.ifWithinGeofences(location, geofences)){
 
             Log.i(TAG, "New location: " + location);
-
-            mLocation = location;
-
             // Notify anyone listening for broadcasts about the new location.
             Intent intent = new Intent(ACTION_BROADCAST);
             intent.putExtra(EXTRA_LOCATION, location);
@@ -354,7 +374,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
 
             // Update notification content if rufloatnning as a foreground service.
             if (serviceIsRunningInForeground(this)) {
-                mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+                mNotificationManager.notify(NOTIFICATION_ID, getNotification(false));
             }
 
             // Add location to exisitng list
@@ -362,6 +382,10 @@ public class LocationUpdatesService extends Service implements IResultListener{
             Log.i(TAG, "onNewLocation: Location added!");
         } else {
             Log.i(TAG, "onNewLocation: Location outside of range. Will not record location.");
+            // Update notification content if running as a foreground service.
+            if (serviceIsRunningInForeground(this)) {
+                mNotificationManager.notify(NOTIFICATION_ID, getNotification(true));
+            }
         }
 
         if(canAccessNetwork(cm) && locationList.size() >= 5) {

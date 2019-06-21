@@ -30,7 +30,7 @@
     <!-- LocationUpdatesService-->
     <string name="location_unknown">Location unknown</string>
     <string name="location_updates_label">Location Updates</string>
-
+    <string name="out_of_range">Out of range. Locations will not be recorded.</string>
     <string name="permission_rationale">Location permission is needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core
         functionality.</string>
