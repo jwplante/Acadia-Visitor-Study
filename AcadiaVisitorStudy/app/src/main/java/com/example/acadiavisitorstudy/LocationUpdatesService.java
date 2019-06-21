@@ -81,6 +81,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
     static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
     static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
+
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
 
@@ -103,6 +104,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
      */
     private static final int NOTIFICATION_ID = 12345678;
 
+
     /**
      * Used to check whether the bound activity has really gone away and not unbound as part of an
      * orientation change. We create a foreground service notification only if the former takes
@@ -123,11 +125,13 @@ public class LocationUpdatesService extends Service implements IResultListener{
     private FusedLocationProviderClient mFusedLocationClient;
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+
     private LocationCallback mLocationCallback;
 
     private Handler mServiceHandler;
 
     private ArrayList<Location> locationList; // Temporary List of all Batched location points
+    private static final int MIN_BATCH_SIZE = 5; // Minimum batch size in order to upload the data
 
     private ConnectivityManager cm;
 
@@ -388,7 +392,7 @@ public class LocationUpdatesService extends Service implements IResultListener{
             }
         }
 
-        if(canAccessNetwork(cm) && locationList.size() >= 5) {
+        if(canAccessNetwork(cm) && locationList.size() >= MIN_BATCH_SIZE) {
             /*
              * Once there is a network connection, take the bunch of network data and
              * send it to the server
