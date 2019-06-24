@@ -159,9 +159,9 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
     @Override
     public void onSubmit(boolean result) {
         if (result) {
-            Toast.makeText(this, "Survey Submitted!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.survey_submit_success), Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Survey failed to submit! Please try again later.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.survey_submit_failed), Toast.LENGTH_LONG).show();
         }
     }
 }

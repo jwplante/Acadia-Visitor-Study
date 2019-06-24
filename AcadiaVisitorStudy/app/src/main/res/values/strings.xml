@@ -1,4 +1,6 @@
 <resources>
+    <string name="pref_file">Preferences</string>
+
     <!-- Main Activity -->
     <string name="app_name">Acadia Visitor Study</string>
     <string name="tracking_button_text_start">Start Tracking</string>
@@ -15,10 +17,10 @@
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
     <string name="survey_question_1"> <b>Question 1:</b> This application affected your visit in an impactful way.</string>
-    <string name="survey_question_2"> <b>Question 2:</b> Visitor congestion is a major problem in Acadia National Park.</string>
+    <string name="survey_question_2"> <b>Question 2:</b> Visitor congestion is a major problem that you noticed while visiting Acadia National Park.</string>
     <string name="survey_question_3"> <b>Question 3:</b> I use my phone often while in Acadia National Park.</string>
-    <string name="survey_question_4"> <b>Question 4:</b> I was concerned about my privacy while using this application.</string>
-    <string name="survey_question_5"> <b>Question 5:</b> I would be willing to use this application again in the future to improve traffic conditions in Acadia National Park.</string>
+    <string name="survey_question_4"> <b>Question 4:</b> I was concerned about my privacy using this application while at the park.</string>
+    <string name="survey_question_5"> <b>Question 5:</b> I would be willing to use this application again in the future to further research into visitor congestion in Acadia National Park.</string>
     <string name="question1">1</string>
     <string name="question_2_value">1</string>
     <string name="question_3_value">1</string>
@@ -202,11 +204,13 @@
       of your accepting any such warranty or additional liability.\n\n
 
    END OF TERMS AND CONDITIONS</string>
+    <string name="survey_submit_success">Survey Submitted</string>
+    <string name="survey_submit_failed">Survey failed to submit! Please try again later.</string>
 
     <!-- LocationUpdatesService-->
     <string name="location_unknown">Location unknown</string>
     <string name="location_updates_label">Location Updates</string>
-
+    <string name="out_of_range">Out of range. Locations will not be recorded.</string>
     <string name="permission_rationale">Location permission is needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core
         functionality.</string>
@@ -217,4 +221,6 @@
 
     <string name="location_updated">Location Updated: %1$s</string>
     <string name="tryagain">Cannot upload survey at this time. Try again later.</string>
+
+    <string name="settings_name"></string>
 </resources>

@@ -23,7 +23,7 @@ public class SQLDatabase implements ILocationProcessor{
 
     private int uid;
     private static final String TAG = "SQLDatabase";
-    final String PREFS_NAME = "MyPrefsFile";
+    final String PREFS_NAME = "Preferences";
     private Context context;
     IResultListener resultListener;
 

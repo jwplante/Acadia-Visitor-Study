@@ -6,6 +6,7 @@ import android.location.Location;
 import android.preference.PreferenceManager;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LocationHelper extends Application {
@@ -52,30 +53,24 @@ public class LocationHelper extends Application {
     }
 
     /***
-     * Determines if a Location object is within a specific radius of a given
-     * area.
-     * @param latCenter - latitude of the center of geofence
-     * @param longCenter - longitude of the center of geofence
-     * @param radius - in miles
+     * Checks if a Location is within an array of Geofences. Returns true if yes, false if no.
+     * @param location
+     * @param geofences
      * @return
      */
-    static boolean withinGeofence(Location l, float latCenter, float longCenter, float radius) {
-        // Create a new Location object
-        Location dest = new Location("null");
-        dest.setLatitude(latCenter);
-        dest.setLongitude(longCenter);
+    static boolean ifWithinGeofences(Location location, ArrayList<IGeofence> geofences) {
+        boolean withinGeofence = false;
 
-       float distance  = metersToMiles(l.distanceTo(dest));
+        /*
+         * Check all of the geofences
+         */
+        for (IGeofence geofence : geofences) {
+            if (geofence.withinGeofence(location)){
+                withinGeofence = true;
+            }
+        }
 
-       return distance <= radius;
+        return withinGeofence;
     }
 
-    /***
-     * Simple method to convert meters to miles.
-     * @param distance
-     * @return
-     */
-    static float metersToMiles(float distance) {
-       return (distance / NUMBER_OF_METERS_IN_MILE);
-    }
 }
