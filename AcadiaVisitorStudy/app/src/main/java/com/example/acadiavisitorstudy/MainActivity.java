@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void viewLicense(View view){
-        Intent intent = new Intent(this, Licensing.class);
+        Intent intent = new Intent(this, LicensingActivity.class);
         startActivity(intent);
     }
 

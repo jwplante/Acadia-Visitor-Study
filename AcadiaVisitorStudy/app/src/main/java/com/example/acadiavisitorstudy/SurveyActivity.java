@@ -27,8 +27,9 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         SeekBar seekQuestionFour = (SeekBar) findViewById(R.id.question4_seekbar);
         SeekBar seekQuestionFive = (SeekBar) findViewById(R.id.question5_seekbar);
 
+        // For all questions set an initial quantity for the default value
         for(int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-            questionArray.add(1);
+            questionArray.add(3);
         }
 
         // TextViews for displaying current choice.
@@ -39,7 +40,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         final TextView questionFiveDisplay = (TextView) findViewById(R.id.question_5_value);
 
         seekQuestionOne.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 1;
+            int progressValue = 3;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
@@ -58,7 +59,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         });
 
         seekQuestionTwo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 0;
+            int progressValue = 3;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
@@ -77,7 +78,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         });
 
         seekQuestionThree.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 0;
+            int progressValue = 3;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
@@ -95,7 +96,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
             }
         });
         seekQuestionFour.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 0;
+            int progressValue = 3;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
@@ -113,7 +114,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
             }
         });
         seekQuestionFive.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 0;
+            int progressValue = 3;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
