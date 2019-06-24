@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             trackingButton.setBackgroundResource(R.color.start_t);
         }
     }
-
+//comment to check
 
     /***
      * Launches the SurveyActivity activity
