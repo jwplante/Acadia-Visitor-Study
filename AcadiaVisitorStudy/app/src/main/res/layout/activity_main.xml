@@ -36,7 +36,8 @@
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:typeface="normal" />
+            android:typeface="normal"
+            tools:layout_weight="0" />
 
         <Button
             android:id="@+id/survey_button"
@@ -47,15 +48,17 @@
             android:onClick="launchSurvey"
             android:text="@string/survey_button_text"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="normal"
+            tools:layout_weight="0" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/mainImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="175dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/MainPicture"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
+            app:srcCompat="@drawable/acadia_main_picture"
+            tools:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -65,28 +68,24 @@
             android:contentDescription="@string/LicensePicture"
             android:onClick="viewLicense"
             app:srcCompat="@android:drawable/ic_menu_info_details"
-            tools:contentDescription="@string/LicensePicture" />
+            tools:contentDescription="@string/LicensePicture"
+            tools:layout_weight="0" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:gravity="center"
-            android:text="@string/jack" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/jim" />
+            android:text="@string/BothOfOurNamesSoTheyShowUpOnTheSameLine" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/wpi" />
+            android:text="@string/wpi"
+            tools:layout_weight="0" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

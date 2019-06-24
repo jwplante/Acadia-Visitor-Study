@@ -13,7 +13,7 @@ public class Licensing extends AppCompatActivity {
 
     }
 
-    public void onSubmit(View view) {
+    public void onDone(View view) {
         finish();
     }
 }
