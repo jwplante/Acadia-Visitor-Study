@@ -62,7 +62,7 @@ public class LocationHelper extends Application {
         boolean withinGeofence = false;
 
         /*
-         * Check all of the geofences in a loca
+         * Check all of the geofences
          */
         for (IGeofence geofence : geofences) {
             if (geofence.withinGeofence(location)){
