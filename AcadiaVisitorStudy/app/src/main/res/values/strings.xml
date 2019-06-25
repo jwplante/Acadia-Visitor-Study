@@ -23,11 +23,11 @@
     <string name="survey_question_3"><b>Question 3:</b> I use my phone to navigate while in Acadia National Park.</string>
     <string name="survey_question_4"><b>Question 4:</b> I was concerned about my privacy while using this application.</string>
     <string name="survey_question_5"><b>Question 5:</b> I would be willing to use this application again.</string>
-    <string name="question1">3</string>
-    <string name="question_2_value">3</string>
-    <string name="question_3_value">3</string>
-    <string name="question_4_value">3</string>
-    <string name="question_5_value">3</string>
+    <string name="question_1_value">4</string>
+    <string name="question_2_value">4</string>
+    <string name="question_3_value">4</string>
+    <string name="question_4_value">4</string>
+    <string name="question_5_value">4</string>
     <string name="submit_button">Submit</string>
     <string name="submitted_notif_text">Survey Submitted</string>
     <string name="Agree">Agree</string>

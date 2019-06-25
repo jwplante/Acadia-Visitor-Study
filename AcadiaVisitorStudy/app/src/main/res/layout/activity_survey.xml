@@ -101,7 +101,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:padding="10dp"
-                    android:text="@string/question1"
+                    android:text="@string/question_1_value"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
