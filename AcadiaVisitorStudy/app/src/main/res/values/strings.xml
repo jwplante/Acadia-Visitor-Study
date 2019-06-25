@@ -19,7 +19,7 @@
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
     <string name="survey_question_1"><b>Question 1:</b> This application impacted my visit.</string>
-    <string name="survey_question_2"><b>Question 2:</b> Visitor congestion impacted my visit today.</string>
+    <string name="survey_question_2"><b>Question 2:</b> Park traffic impacted my visit today.</string>
     <string name="survey_question_3"><b>Question 3:</b> I use my phone to navigate while in Acadia National Park.</string>
     <string name="survey_question_4"><b>Question 4:</b> I would be willing to disclose demographic information on a similar survey in the future.</string>
     <string name="survey_question_5"><b>Question 5:</b> I would be willing to use this application again.</string>
