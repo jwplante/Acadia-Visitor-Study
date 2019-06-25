@@ -7,85 +7,95 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/tracking_button"
-            style="@android:style/Widget.Button.Toggle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:background="@color/start_t"
-            android:onClick="startCollection"
-            android:text="@string/tracking_button_text_start"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:typeface="normal"
-            tools:layout_weight="0" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/survey_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/standard_button_color"
-            android:onClick="launchSurvey"
-            android:text="@string/survey_button_text"
-            android:textSize="24sp"
-            android:textStyle="normal"
-            tools:layout_weight="0" />
+            <Button
+                android:id="@+id/tracking_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/start_t"
+                android:onClick="startCollection"
+                android:text="@string/tracking_button_text_start"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:typeface="normal"
+                tools:layout_weight="0" />
 
-        <ImageView
-            android:id="@+id/mainImage"
-            android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/MainPicture"
-            app:srcCompat="@drawable/acadia_main_picture"
-            tools:layout_weight="1" />
+            <Button
+                android:id="@+id/survey_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/standard_button_color"
+                android:onClick="launchSurvey"
+                android:text="@string/survey_button_text"
+                android:textSize="24sp"
+                android:textStyle="normal|bold"
+                tools:layout_weight="0" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@string/LicensePicture"
-            android:onClick="viewLicense"
-            app:srcCompat="@android:drawable/ic_menu_info_details"
-            tools:contentDescription="@string/LicensePicture"
-            tools:layout_weight="0" />
+            <ImageView
+                android:id="@+id/mainImage"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/MainPicture"
+                app:srcCompat="@drawable/acadia_main_picture"
+                tools:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:text="@string/BothOfOurNamesSoTheyShowUpOnTheSameLine" />
+            <Button
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/LicensePicture"
+                android:onClick="viewLicense"
+                android:drawableLeft="@android:drawable/ic_menu_info_details"
+                android:text="@string/txt_about" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wpi"
-            tools:layout_weight="0" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/version_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/version" />
+
+            <TextView
+                android:id="@+id/tv_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/tv_names" />
+
+            <TextView
+                android:id="@+id/tv_wpi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/wpi"
+                tools:layout_weight="0" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

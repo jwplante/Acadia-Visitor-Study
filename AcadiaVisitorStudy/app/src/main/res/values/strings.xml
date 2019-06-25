@@ -1,4 +1,6 @@
 <resources>
+    <string name="pref_file">Preferences</string>
+
     <!-- Main Activity -->
     <string name="app_name">Acadia Visitor Study</string>
     <string name="tracking_button_text_start">Start Tracking</string>
@@ -6,31 +8,40 @@
     <string name="survey_button_text">Take Survey</string>
     <string name="on_track_start">Starting to track GPS Data...</string>
     <string name="on_track_stop">Stopped tracking.</string>
-    <string name="notif_channel_name">Acadia Visitor Tracking</string>
+    <string name="notif_channel_name">Acadia Visitor Study</string>
+    <string name="version">Acadia Visitor Study v1.0</string>
     <string name="notif_channel_desc">Shows location updates</string>
-    <string name="BothOfOurNamesSoTheyShowUpOnTheSameLine">Joseph Hogan, James Plante</string>
+    <string name="tv_names">Joseph Hogan and James Plante, 2019</string>
     <string name="wpi">Worcester Polytechnic Institute</string>
     <string name="MainPicture">toBeWpiLogo</string>
     <string name="LicensePicture">LicensePicture</string>
+
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
-    <string name="survey_question_1"> <b>Question 1:</b> This application impacted my visit.</string>
-    <string name="survey_question_2"> <b>Question 2:</b> Visitor congestion impacted my visit today.</string>
-    <string name="survey_question_3"> <b>Question 3:</b> I use my phone to navigate while in Acadia National Park.</string>
-    <string name="survey_question_4"> <b>Question 4:</b> I was concerned about my privacy while using this application.</string>
-    <string name="survey_question_5"> <b>Question 5:</b> I would be willing to use this application again.</string>
-    <string name="question1">1</string>
-    <string name="question_2_value">1</string>
-    <string name="question_3_value">1</string>
-    <string name="question_4_value">1</string>
-    <string name="question_5_value">1</string>
+    <string name="survey_question_1"><b>Question 1:</b> This application impacted my visit.</string>
+    <string name="survey_question_2"><b>Question 2:</b> Visitor congestion impacted my visit today.</string>
+    <string name="survey_question_3"><b>Question 3:</b> I use my phone to navigate while in Acadia National Park.</string>
+    <string name="survey_question_4"><b>Question 4:</b> I was concerned about my privacy while using this application.</string>
+    <string name="survey_question_5"><b>Question 5:</b> I would be willing to use this application again.</string>
+    <string name="question1">3</string>
+    <string name="question_2_value">3</string>
+    <string name="question_3_value">3</string>
+    <string name="question_4_value">3</string>
+    <string name="question_5_value">3</string>
     <string name="submit_button">Submit</string>
     <string name="submitted_notif_text">Survey Submitted</string>
     <string name="Agree">Agree</string>
     <string name="Disagree">Disagree</string>
+
     <!-- License Activity -->
     <string name="BackButton">Done</string>
-    <string name="ApacheLicense">Some components of our application, version 1.0, are published under the following apache License: \n\n
+    <string name="license_header">Some components of our application are published with modifications under the following license:</string>
+    <string name="license_attribuation"><b>LocationUpdatesService.java, Utils.java from Google Play Location Samples</b>\n\n
+        Link: <i>https://github.com/googlesamples/android-play-location\n</i></string>
+    <string name="ApacheLicense">
+        Apache License\n
+        Version 2.0, January 2004\n\n
+            http://www.apache.org/licenses/\n
     TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n
         1. Definitions.\n\n
 
@@ -201,12 +212,14 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.\n\n
 
-   END OF TERMS AND CONDITIONS</string>
+            END OF TERMS AND CONDITIONS</string>
+    <string name="survey_submit_success">Survey Submitted</string>
+    <string name="survey_submit_failed">Survey failed to submit! Please try again later.</string>
 
     <!-- LocationUpdatesService-->
     <string name="location_unknown">Location unknown</string>
     <string name="location_updates_label">Location Updates</string>
-
+    <string name="out_of_range">Out of range. Locations will not be recorded.</string>
     <string name="permission_rationale">Location permission is needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core
         functionality.</string>
@@ -217,4 +230,7 @@
 
     <string name="location_updated">Location Updated: %1$s</string>
     <string name="tryagain">Cannot upload survey at this time. Try again later.</string>
+
+    <string name="settings_name"></string>
+    <string name="txt_about">About</string>
 </resources>
