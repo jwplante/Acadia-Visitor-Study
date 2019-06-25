@@ -7,95 +7,119 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
-    <ScrollView
+    <Button
+        android:id="@+id/tracking_button"
+        style="@android:style/Widget.Button.Toggle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/start_t"
+        android:onClick="startCollection"
+        android:text="@string/tracking_button_text_start"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_weight="0" />
 
-        <LinearLayout
+    <Button
+        android:id="@+id/survey_button"
+        style="@android:style/Widget.Button.Toggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/standard_button_color"
+        android:onClick="launchSurvey"
+        android:text="@string/survey_button_text"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tracking_button"
+        tools:layout_weight="0" />
+
+    <ImageView
+        android:id="@+id/mainImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/MainPicture"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/survey_button"
+        app:srcCompat="@drawable/acadia_main_picture"
+        tools:layout_weight="1" />
+
+    <Button
+        android:id="@+id/imageButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/LicensePicture"
+        android:drawableLeft="@android:drawable/ic_menu_info_details"
+        android:onClick="viewLicense"
+        android:text="@string/txt_about"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/version_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical">
+            android:layout_marginTop="8dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:text="@string/version" />
 
-            <Button
-                android:id="@+id/tracking_button"
-                style="@android:style/Widget.Button.Toggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/start_t"
-                android:onClick="startCollection"
-                android:text="@string/tracking_button_text_start"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_weight="0" />
+        <TextView
+            android:id="@+id/tv_names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:text="@string/tv_names" />
 
-            <Button
-                android:id="@+id/survey_button"
-                style="@android:style/Widget.Button.Toggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/standard_button_color"
-                android:onClick="launchSurvey"
-                android:text="@string/survey_button_text"
-                android:textSize="24sp"
-                android:textStyle="normal|bold"
-                tools:layout_weight="0" />
-
-            <ImageView
-                android:id="@+id/mainImage"
-                android:layout_width="match_parent"
-                android:layout_height="175dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/MainPicture"
-                app:srcCompat="@drawable/acadia_main_picture"
-                tools:layout_weight="1" />
-
-            <Button
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/LicensePicture"
-                android:onClick="viewLicense"
-                android:drawableLeft="@android:drawable/ic_menu_info_details"
-                android:text="@string/txt_about" />
-
-            <TextView
-                android:id="@+id/version_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center"
-                android:text="@string/version" />
-
-            <TextView
-                android:id="@+id/tv_names"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center"
-                android:text="@string/tv_names" />
-
-            <TextView
-                android:id="@+id/tv_wpi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/wpi"
-                tools:layout_weight="0" />
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/tv_wpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/wpi"
+            tools:layout_weight="0" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
