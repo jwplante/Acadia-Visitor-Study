@@ -17,9 +17,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class SQLDatabase implements ILocationProcessor{
 
-    private final String url = "http://acadiatrails.wpi.edu/index.php"; // URL to send the data to.
+    private final String url = "https://acadiatrails.wpi.edu//index.php"; // URL to send the data to.
 
     private int uid;
     private static final String TAG = "SQLDatabase";
@@ -125,11 +127,11 @@ public class SQLDatabase implements ILocationProcessor{
 
         @Override
         protected Boolean doInBackground(String... params) {
-            HttpURLConnection httpURLConnection = null;
+            HttpsURLConnection httpURLConnection = null;
             try {
 
                 URL url = new URL(params[0]);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection = (HttpsURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 httpURLConnection.setRequestProperty("Accept", "application/json");
@@ -181,11 +183,11 @@ public class SQLDatabase implements ILocationProcessor{
 
         @Override
         protected Boolean doInBackground(String... params) {
-            HttpURLConnection httpURLConnection = null;
+            HttpsURLConnection httpURLConnection = null;
             try {
 
                 URL url = new URL(params[0]);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection = (HttpsURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.setRequestProperty("USER_AGENT", USER_AGENT);
 
