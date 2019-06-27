@@ -15,6 +15,7 @@
     <string name="wpi">Worcester Polytechnic Institute</string>
     <string name="MainPicture">toBeWpiLogo</string>
     <string name="LicensePicture">LicensePicture</string>
+    <string name="Instructions">Instructions</string>
 
    <!-- Survey Activity -->
     <string name="survey_title">Survey</string>
@@ -232,5 +233,19 @@
     <string name="tryagain">Cannot upload survey at this time. Try again later.</string>
 
     <string name="settings_name"></string>
-    <string name="txt_about">About</string>
+    <string name="txt_about">Licensing</string>
+
+    <!--Instructions Activity-->
+    <string name="Instruction_Body">1.	The tracking button\n
+\ta.	Pressing the tracking button will begin recording data if you are on Mount Desert Island or the Schoodic Peninsula.\n
+\tb.	When the button is red, pressing the button will stop gathering data points. Additionally, you can disable tracking from the notification when outside of the app.\n
+2.	The Survey Button\n
+\ta.	This button will bring you to an optional survey which is designed to be taken at the end of your day in the park.\n
+\tb.	Answer each question on a scale from disagree to agree represented as a scale from 1 – 7\n
+3.	When is the app on?/n
+\ta.	The app is only recording data points when you are getting notifications containing your GPS data.\n
+\tb.	When the Tracking button is green the app is not gathering data.\n
+\tc.	When the phone is outside of Mount Desert Island or the Schoodic Peninsula, the phone will stop gathering data points, but the app will consistently check if you are in range again. That function will have to be disabled manually either by pressing the ‘Stop Tracking’ button in the app or in the notification.\n
+\td.	When you are done using the app, feel free to uninstall it. You can reinstall the application any time by following the QR code to the download link.\n
+</string>
 </resources>

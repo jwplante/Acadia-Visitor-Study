@@ -220,6 +220,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /***
+     * Launches the InstructionActivity activity
+     * @param view
+     */
+    public void viewInstructions(View view){
+        Intent intent = new Intent(this, InstructionActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * Method to get user permissions about location. Displays a message box if permission is
      * initially denied.
