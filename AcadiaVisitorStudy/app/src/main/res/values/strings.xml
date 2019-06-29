@@ -239,7 +239,7 @@
     <string name="Instruction1b">b.	When the button is red, pressing the button will stop gathering data points. Additionally, you can disable tracking from the notification when outside of the app.\n</string>
     <string name="Instruction2">2.	The Survey Button</string>
     <string name="Instruction2a">a.	This button will bring you to an optional survey which is designed to be taken at the end of your day in the park.</string>
-    <string name="Instruction2b">b.	Answer each question on a scale from disagree to agree represented as a scale from 1 – 7\n</string>
+    <string name="Instruction2b">b.	Answer each question is in disagree-agree format represented as a scale from 1 – 7\n</string>
     <string name="Instruction3">3.	When is the app on?</string>
     <string name="Instruction3a">a.	The app is only recording data points when you are getting notifications containing your GPS data.</string>
     <string name="Instruction3b">b.	When the Tracking button is green the app is not gathering data.</string>
