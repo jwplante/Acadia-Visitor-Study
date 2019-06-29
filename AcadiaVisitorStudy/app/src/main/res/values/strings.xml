@@ -211,7 +211,7 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.\n\n
 
-            END OF TERMS AND CONDITIONS</string>
+            END OF TERMS AND CONDITIONS\n</string>
     <string name="survey_submit_success">Survey Submitted</string>
     <string name="survey_submit_failed">Survey failed to submit! Please try again later.</string>
 
@@ -244,5 +244,5 @@
     <string name="Instruction3a">a.	The app is only recording data points when you are getting notifications containing your GPS data.</string>
     <string name="Instruction3b">b.	When the Tracking button is green the app is not gathering data.</string>
     <string name="Instruction3c">c.	When the phone is outside of Mount Desert Island or the Schoodic Peninsula, the phone will stop gathering data points, but the app will consistently check if you are in range again. That function will have to be disabled manually either by pressing the ‘Stop Tracking’ button in the app or in the notification.</string>
-    <string name="Instruction3d">d.	When you are done using the app, feel free to uninstall it. You can reinstall the application any time by following the QR code to the download link.</string>
+    <string name="Instruction3d">d.	When you are done using the app, feel free to uninstall it. You can reinstall the application any time by following the QR code to the download link.\n</string>
 </resources>
