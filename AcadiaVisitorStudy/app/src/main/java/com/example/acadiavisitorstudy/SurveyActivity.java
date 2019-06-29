@@ -21,9 +21,9 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         setContentView(R.layout.activity_survey);
 
         // Getting the values for the seekbars
-        SeekBar seekQuestionThree = (SeekBar) findViewById(R.id.question3_seekbar);
-        SeekBar seekQuestionFour = (SeekBar) findViewById(R.id.question4_seekbar);
-        SeekBar seekQuestionFive = (SeekBar) findViewById(R.id.question5_seekbar);
+        SeekBar seekQuestionOne = (SeekBar) findViewById(R.id.question3_seekbar);
+        SeekBar seekQuestionTwo = (SeekBar) findViewById(R.id.question4_seekbar);
+        SeekBar seekQuestionThree = (SeekBar) findViewById(R.id.question5_seekbar);
 
         // For all questions set an initial quantity for the default value
         for(int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
@@ -31,11 +31,47 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         }
 
         // TextViews for displaying current choice.
-        final TextView questionThreeDisplay = (TextView) findViewById(R.id.question_3_value);
-        final TextView questionFourDisplay = (TextView) findViewById(R.id.question_4_value);
-        final TextView questionFiveDisplay = (TextView) findViewById(R.id.question_5_value);
+        final TextView questionOneDisplay = (TextView) findViewById(R.id.question_3_value);
+        final TextView questionTwoDisplay = (TextView) findViewById(R.id.question_4_value);
+        final TextView questionThreeDisplay = (TextView) findViewById(R.id.question_5_value);
 
 
+        seekQuestionOne.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressValue = 4;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressValue = progress;
+                questionArray.set(0, progressValue + 1);
+                questionOneDisplay.setText(Integer.toString(progressValue + 1));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        seekQuestionTwo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressValue = 4;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressValue = progress;
+                questionArray.set(1, progressValue + 1);
+                questionTwoDisplay.setText(Integer.toString(progressValue + 1));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
         seekQuestionThree.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressValue = 4;
             @Override
@@ -43,42 +79,6 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
                 progressValue = progress;
                 questionArray.set(2, progressValue + 1);
                 questionThreeDisplay.setText(Integer.toString(progressValue + 1));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        seekQuestionFour.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 4;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressValue = progress;
-                questionArray.set(3, progressValue + 1);
-                questionFourDisplay.setText(Integer.toString(progressValue + 1));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        seekQuestionFive.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressValue = 4;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressValue = progress;
-                questionArray.set(4, progressValue + 1);
-                questionFiveDisplay.setText(Integer.toString(progressValue + 1));
             }
 
             @Override
