@@ -136,6 +136,74 @@
                 android:layout_marginStart="24dp"
                 android:text="@string/Instruction3d"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/About"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:text="@string/About" />
+
+            <TextView
+                android:id="@+id/Intro1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"
+                android:text="@string/Intro1"/>
+
+
+            <TextView
+                android:id="@+id/Intro1a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/Intro1a" />
+
+            <TextView
+                android:id="@+id/Intro2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:textSize="18sp"
+                android:text="@string/Intro2" />
+
+            <TextView
+                android:id="@+id/Intro2a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/Intro2a" />
+
+            <TextView
+                android:id="@+id/intro3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:textSize="18sp"
+                android:text="@string/Intro3" />
+
+            <TextView
+                android:id="@+id/intro3a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/Intro3a" />
         </LinearLayout>
     </ScrollView>
 

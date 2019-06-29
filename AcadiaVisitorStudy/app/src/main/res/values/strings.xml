@@ -244,5 +244,23 @@
     <string name="Instruction3a">a.	The app is only recording data points when you are getting notifications containing your GPS data.</string>
     <string name="Instruction3b">b.	When the Tracking button is green the app is not gathering data.</string>
     <string name="Instruction3c">c.	When the phone is outside of Mount Desert Island or the Schoodic Peninsula, the phone will stop gathering data points, but the app will consistently check if you are in range again. That function will have to be disabled manually either by pressing the ‘Stop Tracking’ button in the app or in the notification.</string>
-    <string name="Instruction3d">d.	When you are done using the app, feel free to uninstall it. You can reinstall the application any time by following the QR code to the download link.</string>
+    <string name="Instruction3d">d.	When you are done using the app, feel free to uninstall it. You can reinstall the application any time by following the QR code to the download link.\n\n</string>
+    <string name="About">About</string>
+    <string name="Intro1">Who we are</string>
+    <string name="Intro1a">We are undergraduates at WPI conducting research on behalf of our institution as a part of a study to assess possible ways to monitor visitor congestion at Acadia National Park.\n</string>
+    <string name="Intro2">What we are doing</string>
+    <string name="Intro2a">Our research is intended to address visitor traffic. Acadia has the highest visitation
+        per acre of any other national park, and it shows. The park does a lot to manage traffic, but they are
+        missing some key information. We are asking you to allow us to use your GPS data while you are in the park.
+        With that information, we can cross-reference it with a plethora of other factors that may impact
+        visitation like weather for instance. Over time this analysis can make powerful predictions about
+        seasonal and day to day traffic. The data will remain confidential, and anonymous. The goal of our
+        research is to convince the park that they should be collecting their own visitor data because the
+        possible predictions will allow the park to be proactive rather than reactive, and the result will be a
+        better experience for you, the visitor.\n</string>
+    <string name="Intro3">Contact information</string>
+    <string name="Intro3a">If you need to contact us for any reason regarding the application,
+        we can be reached at either:\n jplante@wpi.edu or jfhogan@wpi.edu\n\n</string>
+
+
 </resources>
