@@ -31,9 +31,9 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
         }
 
         // TextViews for displaying current choice.
-        final TextView questionThreeDisplay = (TextView) findViewById(R.id.question_3_value);
-        final TextView questionFourDisplay = (TextView) findViewById(R.id.question_4_value);
-        final TextView questionFiveDisplay = (TextView) findViewById(R.id.question_5_value);
+        final TextView questionOneDisplay = (TextView) findViewById(R.id.question_3_value);
+        final TextView questionTwoDisplay = (TextView) findViewById(R.id.question_4_value);
+        final TextView questionThreeDisplay = (TextView) findViewById(R.id.question_5_value);
 
 
         seekQuestionOne.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -42,7 +42,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
                 questionArray.set(0, progressValue + 1);
-                questionThreeDisplay.setText(Integer.toString(progressValue + 1));
+                questionOneDisplay.setText(Integer.toString(progressValue + 1));
             }
 
             @Override
@@ -60,7 +60,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
                 questionArray.set(1, progressValue + 1);
-                questionFourDisplay.setText(Integer.toString(progressValue + 1));
+                questionTwoDisplay.setText(Integer.toString(progressValue + 1));
             }
 
             @Override
@@ -78,7 +78,7 @@ public class SurveyActivity extends AppCompatActivity implements IResultListener
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressValue = progress;
                 questionArray.set(2, progressValue + 1);
-                questionFiveDisplay.setText(Integer.toString(progressValue + 1));
+                questionThreeDisplay.setText(Integer.toString(progressValue + 1));
             }
 
             @Override
