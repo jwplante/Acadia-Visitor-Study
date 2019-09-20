@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class SQLDatabase implements ILocationProcessor{
 
-    private final String url = "https://acadiatrails.wpi.edu//index.php"; // URL to send the data to.
+    private final String url = "<Insert URL Here>"; // Insert the URL for the server instance here.
 
     private int uid;
     private static final String TAG = "SQLDatabase";
