@@ -24,8 +24,35 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
+
+/*
+ * NOTICE: Some functions from Google's Location Samples have been reproduced here
+ * in order to get the LocationUpdatesService to function, so the following attribution
+ * is included below to comply with Section 4 of the Apache 2.0 license.
+ */
+
+/**
+ * Copyright 2017 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Modified by James Plante and Joseph Hogan, 2019
+ * to include additional functionality.
+ * Any modifications are also licensed under the Apache v2.0 License.
+ */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -201,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
             trackingButton.setBackgroundResource(R.color.start_t);
         }
     }
-//comment to check
 
     /***
      * Launches the SurveyActivity activity

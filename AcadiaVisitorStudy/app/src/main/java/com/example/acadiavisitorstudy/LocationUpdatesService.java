@@ -16,6 +16,11 @@ package com.example.acadiavisitorstudy;
  * limitations under the License.
  */
 
+/*
+ * Modified by James Plante and Joseph Hogan, 2019
+ * to include additional functionality.
+ * Any modifications are also licensed under the Apache v2.0 License.
+ */
 
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -69,7 +74,7 @@ import java.util.ArrayList;
 public class LocationUpdatesService extends Service implements IResultListener{
 
     private static final String PACKAGE_NAME =
-            "com.google.android.gms.location.sample.locationupdatesforegroundservice";
+            "com.example.acadiavisitorstudy";
 
     private static final String TAG = LocationUpdatesService.class.getSimpleName();
 
